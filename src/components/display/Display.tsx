@@ -1,24 +1,25 @@
+import "./Display.scss";
+
 export interface IDisplay {
   history: string;
   currentDisplayState?: string;
-  prevOperand?: string;
   currentOperator?: string;
 }
 
 export const Display = ({
   history,
   currentDisplayState,
-  prevOperand,
   currentOperator,
-}: IDisplay) => {
+}: IDisplay): JSX.Element => {
   return (
-    <div>
-      <div>
+    <div className="display">
+      <div className="operand">
         <span>{history}</span>
-        {/* <span>{prevOperand}</span> */}
         <span>{currentOperator}</span>
       </div>
-      <span>{currentDisplayState}</span>
+      <div className="currentOperand">
+        <span>{currentDisplayState}</span>
+      </div>
     </div>
   );
 };

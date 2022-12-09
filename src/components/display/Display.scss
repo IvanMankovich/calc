@@ -1,0 +1,28 @@
+.display {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: flex-end;
+  max-width: 640px;
+  min-height: 3em;
+  margin: 0 auto;
+  border: 0.2em solid #5a5a5a;
+  padding: 0.5em 1em;
+  background-color: #bebebe;
+  border-radius: 5px;
+  margin-bottom: 0.4em;
+  font: 1em sans-serif;
+  color: #000000;
+}
+
+.operand {
+  font-size: 0.8em;
+
+  & :first-child {
+    color: #727272;
+  }
+}
+
+.currentOperand {
+  font-size: 1em;
+}
