@@ -8,7 +8,7 @@ import {
   ButtonTypes,
 } from "../types/types";
 
-export const schema: ButtonSchema[] = [
+export const keyboardSchema: ButtonSchema[] = [
   {
     content: BinaryOperators.add,
     type: ButtonTypes.binaryOperator,

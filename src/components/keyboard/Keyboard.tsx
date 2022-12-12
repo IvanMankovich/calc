@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { schema } from "../../schema/Schema";
+import { keyboardSchema } from "../../constants/keyboardSchema";
 import { ButtonSchema, ButtonTypes } from "../../types/types";
 import { Button } from "../button/Button";
 import "./Keyboard.scss";
@@ -27,7 +27,7 @@ export const Keyboard = ({ handleButtonPress }: IKeyboard) => {
 
   return (
     <div className="keyboard">
-      {schema.map((btn: ButtonSchema) => (
+      {keyboardSchema.map((btn: ButtonSchema) => (
         <Button
           type={btn.type}
           key={btn.content}

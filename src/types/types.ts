@@ -37,7 +37,7 @@ export enum Digits {
 
 export enum MiscOperations {
   clear = "C",
-  del = "del",
+  del = "←",
 }
 
 export type ButtonContent = Digits &

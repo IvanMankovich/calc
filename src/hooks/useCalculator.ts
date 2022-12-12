@@ -8,29 +8,30 @@ import {
 import { handleOperation } from "../utils/utils";
 
 export const useCalculator = () => {
-  const [currentDisplayState, setCurrentDisplayState] = useState<string>("0");
+  const DEFAULT_DISPLAY_STATE: string = "0";
+  const DEFAULT_HISTORY_STATE: string = "";
+  const [currentDisplayState, setCurrentDisplayState] = useState<string>(
+    DEFAULT_DISPLAY_STATE
+  );
   const [currentOperator, setCurrentOperator] =
     useState<BinaryOperators | null>(null);
   const [prevOperator, setPrevOperator] = useState<BinaryOperators | null>(
     null
   );
   const [prevOperand, setPrevOperand] = useState<string | null>(null);
-  const [history, setHistory] = useState<string>("");
+  const [history, setHistory] = useState<string>(DEFAULT_HISTORY_STATE);
   const [isAvailableToOp, setAvailableToOp] = useState<boolean>(true);
 
   const handleButtonPress = (content: string, type: ButtonTypes): void => {
     switch (type) {
       case ButtonTypes.digit:
-        if (isAvailableToOp) {
-          if (
-            Number(currentDisplayState) ||
+        if (
+          isAvailableToOp &&
+          (Number(currentDisplayState) ||
             currentDisplayState.includes(".") ||
-            currentOperator
-          ) {
-            setCurrentDisplayState(`${currentDisplayState}${content}`);
-          } else {
-            setCurrentDisplayState(`${content}`);
-          }
+            currentOperator)
+        ) {
+          setCurrentDisplayState(`${currentDisplayState}${content}`);
         } else {
           setCurrentDisplayState(`${content}`);
         }
@@ -51,15 +52,13 @@ export const useCalculator = () => {
             );
             setHistory(`${history}${prevOperator}${currentDisplayState}`);
           }
-          setPrevOperator(content as BinaryOperators);
           setAvailableToOp(false);
-        } else {
-          setPrevOperator(content as BinaryOperators);
         }
+        setPrevOperator(content as BinaryOperators);
         setCurrentOperator(content as BinaryOperators);
         break;
       case ButtonTypes.assignOperator:
-        setHistory("");
+        setHistory(DEFAULT_HISTORY_STATE);
         const result = handleOperation(
           currentOperator as BinaryOperators,
           prevOperand !== null ? +prevOperand : 0,
@@ -69,16 +68,17 @@ export const useCalculator = () => {
         setPrevOperator(null);
         setCurrentOperator(null);
         setCurrentDisplayState(result);
+        setAvailableToOp(false);
         break;
       case ButtonTypes.miscOperation:
-        if (content === MiscOperations.del) {
+        if (content === MiscOperations.del || content === "Backspace") {
           const cuttedString: string = currentDisplayState.slice(
             0,
             currentDisplayState.length - 1
           );
           if (Number(currentDisplayState)) {
             if (!cuttedString) {
-              setCurrentDisplayState("0");
+              setCurrentDisplayState(DEFAULT_DISPLAY_STATE);
             } else {
               setCurrentDisplayState(cuttedString);
             }
@@ -86,7 +86,7 @@ export const useCalculator = () => {
         } else {
           setPrevOperand(null);
           setCurrentOperator(null);
-          setCurrentDisplayState("0");
+          setCurrentDisplayState(DEFAULT_DISPLAY_STATE);
         }
         break;
       case ButtonTypes.unaryOperator:

@@ -6,6 +6,7 @@ import {
   AssignOperators,
   MiscOperations,
 } from "./../types/types";
+import { enter, backspace, del } from "../constants/variables";
 
 export const getButtonType = (content: string): ButtonTypes | null => {
   if ((Object.values(Digits) as string[]).includes(content)) {
@@ -16,10 +17,14 @@ export const getButtonType = (content: string): ButtonTypes | null => {
     return ButtonTypes.unaryOperator;
   } else if (
     (Object.values(AssignOperators) as string[]).includes(content) ||
-    content === "Enter"
+    content === enter
   ) {
     return ButtonTypes.assignOperator;
-  } else if ((Object.values(MiscOperations) as string[]).includes(content)) {
+  } else if (
+    (Object.values(MiscOperations) as string[]).includes(content) ||
+    content === backspace ||
+    content === del
+  ) {
     return ButtonTypes.miscOperation;
   } else {
     return null;
