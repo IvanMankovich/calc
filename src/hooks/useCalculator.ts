@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { backspace, del } from "../constants/variables";
 import {
   BinaryOperators,
   MiscOperations,
@@ -71,7 +72,7 @@ export const useCalculator = () => {
         setAvailableToOp(false);
         break;
       case ButtonTypes.miscOperation:
-        if (content === MiscOperations.del || content === "Backspace") {
+        if (content === MiscOperations.del || content === backspace) {
           const cuttedString: string = currentDisplayState.slice(
             0,
             currentDisplayState.length - 1
@@ -83,7 +84,7 @@ export const useCalculator = () => {
               setCurrentDisplayState(cuttedString);
             }
           }
-        } else {
+        } else if (content === MiscOperations.clear || content === del) {
           setPrevOperand(null);
           setCurrentOperator(null);
           setCurrentDisplayState(DEFAULT_DISPLAY_STATE);
