@@ -24,7 +24,7 @@ export const useCalculator = () => {
         if (isAvailableToOp) {
           if (
             Number(currentDisplayState) ||
-            currentDisplayState.endsWith(".") ||
+            currentDisplayState.includes(".") ||
             currentOperator
           ) {
             setCurrentDisplayState(`${currentDisplayState}${content}`);
@@ -91,7 +91,9 @@ export const useCalculator = () => {
         break;
       case ButtonTypes.unaryOperator:
         if (content === UnaryOperators.dot) {
-          setCurrentDisplayState(`${currentDisplayState}${content}`);
+          if (!currentDisplayState.includes(content)) {
+            setCurrentDisplayState(`${currentDisplayState}${content}`);
+          }
         } else {
           setCurrentDisplayState(`${-Number(currentDisplayState)}`);
         }
