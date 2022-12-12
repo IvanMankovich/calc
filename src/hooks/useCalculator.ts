@@ -53,6 +53,8 @@ export const useCalculator = () => {
           }
           setPrevOperator(content as BinaryOperators);
           setAvailableToOp(false);
+        } else {
+          setPrevOperator(content as BinaryOperators);
         }
         setCurrentOperator(content as BinaryOperators);
         break;
