@@ -8,7 +8,14 @@ import {
 } from "../types/types";
 import { handleOperation } from "../utils/utils";
 
-export const useCalculator = () => {
+export interface IUseCalculator {
+  currentDisplayState: string;
+  currentOperator: BinaryOperators | null;
+  history: string;
+  handleButtonPress: (content: string, type: ButtonTypes) => void;
+}
+
+export const useCalculator = (): IUseCalculator => {
   const DEFAULT_DISPLAY_STATE: string = "0";
   const DEFAULT_HISTORY_STATE: string = "";
   const [currentDisplayState, setCurrentDisplayState] = useState<string>(
